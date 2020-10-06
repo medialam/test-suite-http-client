@@ -10,10 +10,10 @@ use Serps\Core\Cookie\Cookie;
 use Serps\Core\Http\HttpClientInterface;
 use Serps\Core\Http\SearchEngineResponse;
 use Symfony\Component\Process\Process;
-use Zend\Diactoros\Request;
+use Laminas\Diactoros\Request;
 use Serps\Core\Http\Proxy;
 
-abstract class HttpClientTestsCase extends \PHPUnit_Framework_TestCase
+abstract class HttpClientTestsCase extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -21,7 +21,7 @@ abstract class HttpClientTestsCase extends \PHPUnit_Framework_TestCase
      */
     private static $process;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$process = new Process('exec php ' . __DIR__ . '/../resources/proxyserver.php');
         self::$process->start();
@@ -159,7 +159,7 @@ abstract class HttpClientTestsCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://httpbin.org/get', $data['url']);
     }
 
-    public function testSocks5Proxy()
+    public function testSocks5Proxy(): void
     {
         $client = $this->getHttpClient();
         $request = new Request('http://httpbin.org/get', 'GET');
